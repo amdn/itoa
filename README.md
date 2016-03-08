@@ -3,8 +3,8 @@ Very fast integer to ASCII conversion, C++14 template meta-programming implement
 
 Compile and link itoa.cpp with your application.
 
-itoa.h      - programming interface
-itoa_impl.h - implementation
+    itoa.h      - programming interface
+    itoa_impl.h - implementation
 
 Two function templates are provided to print the integer going forward at the given buffer (returns pointer to the past-the-end character of the string) or reverse given a pointer to the end (characters stored to the left, lower addresses from given pointer, returns pointer to beginning of string).
 
