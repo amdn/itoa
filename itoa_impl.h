@@ -92,10 +92,10 @@ namespace dec_ {
     template<int N> using U = typename MI<N>::type;
 
     // struct QR holds the result of dividing an unsigned N-byte variable
-    // by 10^(N/2) resulting in
+    // by 10^N resulting in
     template<size_t N> struct QR {
-        U<N> q;   // quotient with fewer than N decimal digits
-        U<N/2> r; // remainder with at most N/2 decimal digits
+        U<N> q;   // quotient with fewer than 2*N decimal digits
+        U<N/2> r; // remainder with at most N decimal digits
     };
     template<size_t N> QR<N> static inline split( U<N> u ) {
         constexpr MI<N> mi{};
@@ -109,7 +109,7 @@ namespace dec_ {
             enum Magnitude { NotLarge, M=NotLarge, MaybeLarge };
             enum ZFill { NoFill, Z };
 
-            // output digits in either a forward or reverse direction
+            // output the digits in either a forward or reverse direction
             // using memcpy so compiler handles alignment on target architecture.
             // This will typically generate one store to memory with an optimizing
             // compiler and a target architecture that supports unaligned access.
@@ -123,7 +123,7 @@ namespace dec_ {
 
             // i2a_small
             // recursively handle values of "u" less than 10^N,
-            // where N is the # bytes in "u'
+            // where N is the # bytes in "u"
             template<size_t N>
             static inline char* i2a_small(char* p, U<N> u, ZFill z) {
                 return ( z == NoFill
@@ -179,20 +179,20 @@ namespace dec_ {
             }
 
             // i2a: handle unsigned integral values (selected by SFINAE)
-            template<typename U, size_t N=sizeof(U),
-                std::enable_if_t<not std::is_signed<U>::value>* = nullptr>
+            template<typename U,
+                std::enable_if_t<not std::is_signed<U>::value
+                                 && std::is_integral<U>::value>* = nullptr>
             static inline char* i2a( U u, char* p )
             {
-                static_assert(std::is_integral<U>::value,"");
                 return convert<D>::template i2a(p,u,MaybeLarge,NoFill);
             }
 
             // i2a: handle signed integral values (selected by SFINAE)
             template<typename I, size_t N=sizeof(I),
-                std::enable_if_t<std::is_signed<I>::value>* = nullptr>
+                std::enable_if_t<std::is_signed<I>::value
+                                 && std::is_integral<I>::value>* = nullptr>
             static inline char* i2a( I i, char* p )
             {
-                static_assert(std::is_integral<I>::value,"");
                 // Need "mask" to be filled with a copy of the sign bit.
                 // If "i" is a negative value, then the result of "operator >>"
                 // is implementation-defined, though usually it is an arithmetic
