@@ -35,12 +35,4 @@ namespace dec_
     digits = generate_array<char,200>( [](size_t i) {
             return char('0' + ((i%2) ? ((i/2)%10) : ((i/2)/10)));
         }, std::make_index_sequence<200>{} );
-
-    // Instantiate forward and reverse versions
-    template char* convert<Fwd>::i2a(char*, U<2>, Magnitude, ZFill );
-    template char* convert<Rev>::i2a(char*, U<2>, Magnitude, ZFill );
-    template char* convert<Fwd>::i2a(char*, U<4>, Magnitude, ZFill );
-    template char* convert<Rev>::i2a(char*, U<4>, Magnitude, ZFill );
-    template char* convert<Fwd>::i2a(char*, U<8>, Magnitude, ZFill );
-    template char* convert<Rev>::i2a(char*, U<8>, Magnitude, ZFill );
 }
