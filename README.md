@@ -6,7 +6,9 @@ Compile and link itoa.cpp with your application.
     itoa.h      - programming interface
     itoa_impl.h - implementation
 
-Two function templates are provided to print the integer going forward at the given buffer (returns pointer to the past-the-end character of the string) or reverse given a pointer to the end (characters stored to the left, lower addresses from given pointer, returns pointer to beginning of string).
+Two function templates are provided to print the integer (without a NUL terminator)
+  * left-justified, going forward at the given buffer - returns pointer to the past-the-end character of the string
+  * right-justified, given a pointer to the end store in reverse - returns pointer to beginning of string
 
 ```c++
 // print forward, return pointer to past-the-end
