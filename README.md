@@ -5,6 +5,7 @@ Compile and link itoa.cpp with your application.
 
     itoa.h      - programming interface
     itoa_impl.h - implementation
+    itoa.cpp    - definition of digits lookup table
 
 Two function templates are provided to print the integer (without a NUL terminator)
   * left-justified, going forward at the given buffer - returns pointer to the past-the-end character of the string
