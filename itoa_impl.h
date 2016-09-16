@@ -51,7 +51,7 @@ namespace dec_ {
     // Division by a power of 10 is implemented using a multiplicative inverse.
     // This strength reduction is also done by optimizing compilers, but
     // presently the fastest results are produced by using the values
-    // for the muliplication and the shift as given by the algorithm
+    // for the multiplication and the shift as given by the algorithm
     // described by Agner Fog in "Optimizing Subroutines in Assembly Language"
     //
     // http://www.agner.org/optimize/optimizing_assembly.pdf
